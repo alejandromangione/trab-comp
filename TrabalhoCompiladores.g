@@ -9,7 +9,6 @@ class PortugolParser extends Parser;
 }
 
 statement:
-     assigningStatement|
      ifStatement|
      whileLoop|
      forLoop|
@@ -20,13 +19,6 @@ statementBlock:
     OPEN_KEY
     (statement)+
     CLOSE_KEY
-;
-
-assigningStatement:
-    ID
-    EQUAL
-    (STRING)
-    END
 ;
 
 ifStatement:
@@ -48,7 +40,7 @@ whileLoop:
 ;
 
 vars:
-    type 
+    type
     ID
     (EQUAL (math_structure|boolean_structure|STRING))
     END
@@ -96,11 +88,6 @@ options {
     k = 1;
 }
 
-/*
- * Nesta secao devo declarar somente strings?
- * Qual a diferenca entre ficar aqui?
- * Porque EQUAL = "=" nao funciona?
- */
 tokens {
     NUMBER = "numero";
     BOOLEAN = "boleano";
@@ -167,9 +154,7 @@ NUMBER:
 ;
 
 STRING:
-    '"'
-    ('a'..'z'|'A'..'Z'|' '|'0'..'9')*
-    '"'
+    ('a'..'z')('a'..'z' | 'A'..'Z')*
 ;
 
 T_space: ('\t' | ' ' | '\r' '\n' | '\n') + { _ttype = Token.SKIP; };
